@@ -1,5 +1,8 @@
 package com.flashsale.service;
 
+import com.flashsale.domain.Reservation;
+import com.flashsale.domain.ReservationStatus;
+import com.flashsale.domain.Stock;
 import com.flashsale.repository.ReservationRepository;
 import com.flashsale.repository.StockRepository;
 import lombok.RequiredArgsConstructor;
@@ -34,7 +37,16 @@ public class ReservationService {
      */
     @Transactional
     public boolean reserve(Long userId, Long productId) {
-        // TODO(Step 0): 위 흐름대로 직접 구현한다.
-        throw new UnsupportedOperationException("Step 0에서 구현 예정");
+        Stock stock = stockRepository.findByProductId(productId)
+                .orElseThrow(() -> new IllegalArgumentException("stock not found: productId=" + productId));
+
+        if (stock.getQuantity() <= 0) {
+            return false;
+        } else {
+            stock.decrease();
+        }
+        reservationRepository.save(new Reservation(userId, productId, ReservationStatus.CONFIRMED));
+
+        return true;
     }
 }
