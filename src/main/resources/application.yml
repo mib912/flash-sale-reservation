@@ -4,6 +4,8 @@ spring:
     username: flashsale
     password: flashsale
     driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 100 # 동시에 열 수 있는 db 커넥션 최대 값
   jpa:
     hibernate:
       # 매 기동 시 스키마를 새로 만든다 → 부하 테스트 반복 시 깨끗한 상태 보장
