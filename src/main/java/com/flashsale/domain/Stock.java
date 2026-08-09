@@ -1,9 +1,6 @@
 package com.flashsale.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,6 +26,9 @@ public class Stock {
     private Long productId;
 
     private int quantity;
+
+    @Version
+    private Integer version;
 
     public Stock(Long productId, int quantity) {
         this.productId = productId;
